@@ -1,8 +1,8 @@
 {
-  "name": "@botbuilder-utils/botbuilder-azure",
+  "name": "botbuilder-azure",
   "author": "Microsoft Corp.",
   "description": "Azure extensions for Microsoft BotBuilder.",
-  "version": "4.0.0-preview1.2",
+  "version": "4.0.0-aicat1.1",
   "license": "MIT",
   "keywords": [
     "botbuilder",
@@ -23,7 +23,7 @@
   "dependencies": {
     "@types/node": "^9.3.0",
     "azure-storage": "^2.3.0",
-    "@botbuilder-utils/botbuilder": "4.0.0-preview1.2",
+    "botbuilder": "4.0.0-aicat1.1",
     "documentdb": "^1.14.2",
     "flat": "^4.0.0"
   },

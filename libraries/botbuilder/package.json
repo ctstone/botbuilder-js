@@ -1,8 +1,8 @@
 {
-  "name": "@botbuilder-utils/botbuilder",
+  "name": "botbuilder",
   "author": "Microsoft Corp.",
   "description": "Bot Builder is a framework for building rich bots on virtually any platform.",
-  "version": "4.0.0-preview1.2",
+  "version": "4.0.0-aicat1.1",
   "license": "MIT",
   "keywords": [
     "botbuilder",
@@ -28,8 +28,8 @@
     "@types/filenamify": "^2.0.1",
     "assert": "^1.4.1",
     "async-file": "^2.0.2",
-    "@botbuilder-utils/botbuilder-core": "4.0.0-preview1.2",
-    "@botbuilder-utils/botframework-connector": "4.0.0-preview1.2",
+    "botbuilder-core": "4.0.0-aicat1.1",
+    "botframework-connector": "4.0.0-aicat1.1",
     "filenamify": "^2.0.0",
     "readline": "^1.3.0"
   },

@@ -17,8 +17,8 @@ While this package is in preview it's possible for updates to include build brea
 ```JSON
 {
     "dependencies": {
-        "botbuilder": "4.0.0-preview1.2",
-        "botbuilder-ai": "4.0.0-preview1.2"
+        "botbuilder": "4.0.0-aicat1.1",
+        "botbuilder-ai": "4.0.0-aicat1.1"
     }
 }
 ```
