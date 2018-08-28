@@ -1,5 +1,5 @@
 {
-  "name": "botframework-config",
+  "name": "@botbuilder-utils/botframework-config",
   "author": "Microsoft Corp.",
   "description": "library for working with Bot Framework .bot configuration files",
   "version": "4.0.0-preview1.2",
