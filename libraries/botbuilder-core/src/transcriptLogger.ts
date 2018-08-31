@@ -87,7 +87,7 @@ export class TranscriptLoggerMiddleware implements Middleware {
         while (this.transcript.length > 0) {
             try {
                 let activity = this.transcript.shift();
-                this.logger.logActivity(activity);
+                await this.logger.logActivity(activity);
             } catch (err) {
                 console.error('TranscriptLoggerMiddleware logActivity failed', err);
             }
@@ -123,7 +123,7 @@ export class ConsoleTranscriptLogger implements TranscriptLogger {
      * Log an activity to the transcript.
      * @param activity Activity being logged.
      */
-    logActivity(activity: Activity): void | Promise<void> {
+    public logActivity(activity: Activity): void | Promise<void> {
         if (!activity) { throw new Error('Activity is required.'); }
 
         console.log('Activity Log:', activity);
@@ -177,17 +177,17 @@ export class Transcript {
     /**
      * ChannelId that the transcript was taken from.
      */
-    channelId: string;
+    public channelId: string;
 
     /**
      * Conversation Id.
      */
-    id: string;
+    public id: string;
 
     /**
      * Date conversation was started.
      */
-    created: Date;
+    public created: Date;
 }
 
 /**
@@ -199,10 +199,10 @@ export class PagedResult<T> {
     /**
      * Page of items.
      */
-    items: T[] = [];
+    public items: T[] = [];
 
     /**
      * Token used to page through multiple pages.
      */
-    continuationToken: string;
+    public continuationToken: string;
 }
