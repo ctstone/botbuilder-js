@@ -6,9 +6,9 @@
  * Licensed under the MIT License.
  */
 
+import { Activity, ActivityTypes, ConversationReference, ResourceResponse } from 'botframework-schema';
 import { Middleware } from './middlewareSet';
 import { TurnContext } from './turnContext';
-import { Activity, ActivityTypes } from 'botframework-schema';
 
 /**
  * When added, this middleware will log incoming and outgoing activities to a ITranscriptStore.
@@ -23,7 +23,7 @@ export class TranscriptLoggerMiddleware implements Middleware {
      */
     constructor(logger: TranscriptLogger) {
         if (!logger) {
-            throw new Error('TranscriptLoggerMiddleware requires a TranscriptLogger instance.')
+            throw new Error('TranscriptLoggerMiddleware requires a TranscriptLogger instance.');
         }
 
         this.logger = logger;
@@ -45,50 +45,56 @@ export class TranscriptLoggerMiddleware implements Middleware {
         }
 
         // hook up onSend pipeline
-        context.onSendActivities(async (ctx, activities, next) => {
+        context.onSendActivities(async (ctx: TurnContext, activities: Partial<Activity>[], next2:  () => Promise<ResourceResponse[]>) => {
             // run full pipeline
-            let responses = await next();
-            activities.forEach(a => this.logActivity(this.cloneActivity(a)));
+            const responses: ResourceResponse[] = await next2();
+            activities.forEach((a: ResourceResponse) => this.logActivity(this.cloneActivity(a)));
+
             return responses;
         });
 
         // hook up update activity pipeline
-        context.onUpdateActivity(async (ctx, activity, next) => {
+        context.onUpdateActivity(async (ctx: TurnContext, activity: Partial<Activity>, next3: () => Promise<void>) => {
             // run full pipeline
-            let response = await next();
+            const response: void = await next3();
 
             // add Message Update activity
-            let updateActivity = this.cloneActivity(activity);
+            const updateActivity: Activity = this.cloneActivity(activity);
             updateActivity.type = ActivityTypes.MessageUpdate;
             this.logActivity(updateActivity);
+
             return response;
         });
 
         // hook up delete activity pipeline
-        context.onDeleteActivity(async (ctx, reference, next) => {
+        context.onDeleteActivity(async (ctx: TurnContext, reference: Partial<ConversationReference>, next4: () => Promise<void>) => {
             // run full pipeline
-            await next();
+            await next4();
 
             // add MessageDelete activity
             // log as MessageDelete activity
-            let deleteActivity = TurnContext.applyConversationReference(
+            const deleteActivity: Partial<Activity> = TurnContext.applyConversationReference(
                 {
                     type: ActivityTypes.MessageDelete,
                     id: reference.activityId
-                }, reference, false);
+                },
+                reference,
+                false
+            );
 
             this.logActivity(<Activity>deleteActivity);
         });
 
         // process bot logic
-        await next()
+        await next();
 
         // flush transcript at end of turn
         while (this.transcript.length > 0) {
             try {
-                let activity = this.transcript.shift();
+                const activity = this.transcript.shift();
                 await this.logger.logActivity(activity);
             } catch (err) {
+                // tslint:disable-next-line:no-console
                 console.error('TranscriptLoggerMiddleware logActivity failed', err);
             }
         }
@@ -126,6 +132,7 @@ export class ConsoleTranscriptLogger implements TranscriptLogger {
     public logActivity(activity: Activity): void | Promise<void> {
         if (!activity) { throw new Error('Activity is required.'); }
 
+        // tslint:disable-next-line:no-console
         console.log('Activity Log:', activity);
     }
 }
@@ -153,7 +160,12 @@ export interface TranscriptStore extends TranscriptLogger {
      * @param continuationToken Continuatuation token to page through results.
      * @param startDate Earliest time to include.
      */
-    getTranscriptActivities(channelId: string, conversationId: string, continuationToken?: string, startDate?: Date): Promise<PagedResult<Activity>>;
+    getTranscriptActivities(
+        channelId: string,
+        conversationId: string,
+        continuationToken?: string,
+        startDate?: Date
+    ): Promise<PagedResult<Activity>>;
 
     /**
      * List conversations in the channelId.
@@ -194,6 +206,7 @@ export class Transcript {
  * Page of results.
  * @param T type of items being paged in.
  */
+// tslint:disable-next-line:max-classes-per-file
 export class PagedResult<T> {
 
     /**
