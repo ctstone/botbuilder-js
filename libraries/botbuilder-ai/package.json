@@ -2,7 +2,7 @@
   "name": "botbuilder-ai",
   "author": "Microsoft Corp.",
   "description": "Cognitive services extensions for Microsoft BotBuilder.",
-  "version": "4.0.0-aicat1.1",
+  "version": "4.0.1-aicat1.2",
   "license": "MIT",
   "keywords": [
     "botbuilder",
@@ -25,7 +25,7 @@
     "@types/node": "^9.3.0",
     "@types/request-promise-native": "^1.0.10",
     "azure-cognitiveservices-luis-runtime": "^1.0.0",
-    "botbuilder": "^4.0.0-aicat1.1",
+    "botbuilder": "^4.0.1-aicat1.2",
     "html-entities": "^1.2.1",
     "moment": "^2.20.1",
     "ms-rest": "^2.3.6",
@@ -47,6 +47,8 @@
     "build": "tsc",
     "build-docs": "typedoc --theme markdown --entryPoint botbuilder-ai --excludePrivate --includeDeclarations --ignoreCompilerErrors --module amd --out ..\\..\\doc\\botbuilder-ai .\\lib\\index.d.ts --hideGenerator --name \"Bot Builder SDK - AI\" --readme none",
     "clean": "erase /q /s .\\lib",
-    "set-version": "npm version --allow-same-version ${Version}"
+    "set-version": "npm version --allow-same-version ${Version}",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm --no-git-tag-version version prerelease"
   }
 }

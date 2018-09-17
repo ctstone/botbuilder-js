@@ -2,7 +2,7 @@
   "name": "botbuilder-azure",
   "author": "Microsoft Corp.",
   "description": "Azure extensions for Microsoft BotBuilder.",
-  "version": "4.0.0-aicat1.1",
+  "version": "4.0.1-aicat1.2",
   "license": "MIT",
   "keywords": [
     "botbuilder",
@@ -23,7 +23,7 @@
   "dependencies": {
     "@types/node": "^9.3.0",
     "azure-storage": "^2.3.0",
-    "botbuilder": "4.0.0-aicat1.1",
+    "botbuilder": "^4.0.1-aicat1.2",
     "documentdb": "^1.14.2",
     "flat": "^4.0.0"
   },
@@ -40,6 +40,8 @@
     "build": "tsc",
     "build-docs": "typedoc --theme markdown --entryPoint botbuilder-azure --excludePrivate --includeDeclarations --ignoreCompilerErrors --module amd --out ..\\..\\doc\\botbuilder-azure .\\lib\\index.d.ts --hideGenerator --name \"Bot Builder SDK - Azure\" --readme none",
     "clean": "erase /q /s .\\lib",
-    "set-version": "npm version --allow-same-version ${Version}"
+    "set-version": "npm version --allow-same-version ${Version}",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm --no-git-tag-version version prerelease"
   }
 }

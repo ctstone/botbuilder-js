@@ -2,7 +2,7 @@
   "name": "botbuilder-core",
   "author": "Microsoft Corp.",
   "description": "Core components for Microsoft Bot Builder. Components in this library can run either in a browser or on the server.",
-  "version": "4.0.0-aicat1.2",
+  "version": "4.0.1-aicat1.4",
   "license": "MIT",
   "keywords": [
     "botbuilder",
@@ -21,7 +21,7 @@
   "typings": "./lib/index.d.ts",
   "dependencies": {
     "assert": "^1.4.1",
-    "botframework-schema": "4.0.0-aicat1.1"
+    "botframework-schema": "^4.0.1-aicat1.2"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.47",
@@ -35,6 +35,8 @@
     "build": "tsc",
     "build-docs": "typedoc --theme markdown --entryPoint botbuilder --excludePrivate --includeDeclarations --ignoreCompilerErrors --module amd --out ..\\..\\doc\\botbuilder .\\lib\\index.d.ts ..\\botbuilder-core\\lib\\index.d.ts ..\\botbuilder-core-extensions\\lib\\index.d.ts ..\\botframework-schema\\lib\\index.d.ts --hideGenerator --name \"Bot Builder SDK\" --readme none",
     "clean": "erase /q /s .\\lib",
-    "set-version": "npm version --allow-same-version ${Version}"
+    "set-version": "npm version --allow-same-version ${Version}",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm --no-git-tag-version version prerelease"
   }
 }

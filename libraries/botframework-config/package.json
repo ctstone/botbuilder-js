@@ -2,7 +2,7 @@
   "name": "botframework-config",
   "author": "Microsoft Corp.",
   "description": "library for working with Bot Framework .bot configuration files",
-  "version": "4.0.0-aicat1.1",
+  "version": "4.0.1-aicat1.2",
   "license": "MIT",
   "keywords": [
     "bots",
@@ -39,6 +39,8 @@
     "test": "tsc && nyc mocha tests/",
     "build": "tsc",
     "clean": "erase /q /s .\\lib",
-    "set-version": "npm version --allow-same-version ${Version}"
+    "set-version": "npm version --allow-same-version ${Version}",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm --no-git-tag-version version prerelease"
   }
 }

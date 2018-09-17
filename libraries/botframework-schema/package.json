@@ -1,6 +1,6 @@
 {
   "name": "botframework-schema",
-  "version": "4.0.0-aicat1.1",
+  "version": "4.0.1-aicat1.2",
   "description": "Activity schema for the Microsoft Bot Framework.",
   "keywords": [
     "botconnector",
@@ -16,7 +16,9 @@
   "scripts": {
     "build": "tsc",
     "clean": "erase /q /s .\\lib",
-    "set-version": "npm version --allow-same-version ${Version}"
+    "set-version": "npm version --allow-same-version ${Version}",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm --no-git-tag-version version prerelease"
   },
   "homepage": "http://github.com/Microsoft/botbuilder-js",
   "bugs": {
